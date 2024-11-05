@@ -4,6 +4,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -49,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         }
             else{
                     try{
-                        db.execSQL("INSERT INTO student VALUES('" + rollno.getText().toString() + "','" + name.getText().toString() + "','" + marks.getText().toString() + "')");
+                        db.execSQL("INSERT INTO student VALUES(" + rollno.getText().toString() + "," + name.getText().toString() + "," + marks.getText().toString() );
                         Toast.makeText(MainActivity.this,"Rcords added Successfully",Toast.LENGTH_SHORT).show();
                         rollno.setText("");
                         name.setText("");
@@ -115,7 +117,8 @@ public class MainActivity extends AppCompatActivity {
                 try{
                     Cursor c=db.rawQuery("SELECT * from student where rollno="+rollno.getText().toString(),null);
                     if(c.moveToFirst()){
-                      db.execSQL("Update students set name='"+name.getText().toString()+"',marks='"+marks.getText().toString()+"' where rollno="+rollno.getText().toString());
+                      db.execSQL("Update student set name='"+name.getText().toString()+"',marks='"+marks.getText().toString()+"' where rollno="+rollno.getText().toString());
+                        Toast.makeText(MainActivity.this,"Rcords updated successfully",Toast.LENGTH_SHORT).show();
                     }
                     else{
                         Toast.makeText(MainActivity.this,"Rcords not updated",Toast.LENGTH_SHORT).show();
@@ -126,6 +129,22 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this,"Exception:"+e,Toast.LENGTH_SHORT).show();
                 }
             }
+        });
+        viewAll.setOnClickListener(b->{
+                try{
+                    Cursor c=db.rawQuery("SELECT * from student",null);
+                    try{
+                        while(c.moveToFirst()){
+                            Log.e("DatabaseDateOut","Roll No:"+c.getString(0)+"Name:"+c.getString(1)+"Marks:"+c.getString(2));
+                        }
+                    }
+                    finally {
+                        c.close();
+                    }
+                }
+                catch (Exception e){
+                    Toast.makeText(MainActivity.this,"Exception:"+e,Toast.LENGTH_SHORT).show();
+                }
         });
 }
     }
