@@ -54,13 +54,15 @@ public class MainActivity extends AppCompatActivity {
         }
             else{
                     try{
-                        db.execSQL("INSERT INTO student VALUES(" + rollno.getText().toString() + "," + name.getText().toString() + "," + marks.getText().toString() );
+                        db.execSQL("INSERT INTO student VALUES(rollno =" + rollno.getText().toString() + ",name=" + name.getText().toString() + ",marks=" + marks.getText().toString()+")");
                         Toast.makeText(MainActivity.this,"Rcords added Successfully",Toast.LENGTH_SHORT).show();
                         rollno.setText("");
                         name.setText("");
                         marks.setText("");
                     }
                     catch (Exception e){
+                        Toast.makeText(MainActivity.this,"Eception:"+e,Toast.LENGTH_SHORT).show();
+                        Log.e("error","Eception:"+e);
                         Toast.makeText(MainActivity.this,"Rcords added Failed",Toast.LENGTH_SHORT).show();
 
                     }
@@ -134,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         viewAll.setOnClickListener(b->{
+            viewRcord.setText("");
                 try{
                     Cursor c=db.rawQuery("SELECT * from student",null);
                     try {
