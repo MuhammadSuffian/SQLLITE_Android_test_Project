@@ -142,5 +142,10 @@
         android:layout_marginTop="30dp"
         android:background="@drawable/btn_background"
         />
+    <TextView
+        android:id="@+id/view_record"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
 
 </LinearLayout>

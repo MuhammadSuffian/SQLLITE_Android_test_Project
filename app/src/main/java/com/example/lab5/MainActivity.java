@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -20,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     EditText rollno;
     EditText name;
     EditText marks;
+    TextView viewRcord;
     SQLiteDatabase db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         rollno=findViewById(R.id.tv_roll_no_input);
         name=findViewById(R.id.tv_name_input);
         marks=findViewById(R.id.tv_marks_input);
+        viewRcord=findViewById(R.id.view_record);
     }
     void buttonLogic(){
         insert.setOnClickListener(b->{
@@ -133,14 +136,15 @@ public class MainActivity extends AppCompatActivity {
         viewAll.setOnClickListener(b->{
                 try{
                     Cursor c=db.rawQuery("SELECT * from student",null);
-                    try{
-                        while(c.moveToFirst()){
-                            Log.e("DatabaseDateOut","Roll No:"+c.getString(0)+"Name:"+c.getString(1)+"Marks:"+c.getString(2));
+                    try {
+                        while (c.moveToNext()) {
+                            Log.e("DatabaseDateOut", "Roll No:" + c.getString(0) + " Name:" + c.getString(1) + " Marks:" + c.getString(2));
+                            viewRcord.setText(viewRcord.getText()+"\nRoll No:" + c.getString(0) + " Name:" + c.getString(1) + " Marks:" + c.getString(2));
                         }
-                    }
-                    finally {
+                    } finally {
                         c.close();
                     }
+
                 }
                 catch (Exception e){
                     Toast.makeText(MainActivity.this,"Exception:"+e,Toast.LENGTH_SHORT).show();
