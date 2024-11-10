@@ -77,13 +77,13 @@ public class MainActivity extends AppCompatActivity {
                     Cursor c=db.rawQuery("SELECT * from student where rollno="+rollno.getText().toString(),null);
                     if(c.moveToFirst()){
                         db.execSQL("DELETE FROM student Where rollno="+rollno.getText().toString());
-                        Toast.makeText(MainActivity.this,"Rcords Deleted Successfully",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this,"Records Deleted Successfully",Toast.LENGTH_SHORT).show();
                         rollno.setText("");
                         name.setText("");
                         marks.setText("");
                     }
                     else{
-                        Toast.makeText(MainActivity.this,"Rcords Deleted Failed",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this,"Records Deleted Failed",Toast.LENGTH_SHORT).show();
 
                     }
 
